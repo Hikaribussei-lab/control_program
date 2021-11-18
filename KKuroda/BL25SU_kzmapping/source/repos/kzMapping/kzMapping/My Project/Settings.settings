@@ -1,0 +1,45 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="My" GeneratedClassName="MySettings" UseMySettingsClassName="true">
+  <Profiles />
+  <Settings>
+    <Setting Name="r1" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">6.855</Value>
+    </Setting>
+    <Setting Name="r2" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">11.146</Value>
+    </Setting>
+    <Setting Name="theta" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">87.96</Value>
+    </Setting>
+    <Setting Name="R" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">324.303</Value>
+    </Setting>
+    <Setting Name="density" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">600</Value>
+    </Setting>
+    <Setting Name="gs2" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">10000</Value>
+    </Setting>
+    <Setting Name="mag2" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">1.626</Value>
+    </Setting>
+    <Setting Name="MirrGra" Type="System.String" Scope="User">
+      <Value Profile="(Default)">M21a-G4a</Value>
+    </Setting>
+    <Setting Name="calib_a" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">-106801000</Value>
+    </Setting>
+    <Setting Name="calib_b" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">528865</Value>
+    </Setting>
+    <Setting Name="ExeFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Users\Scientaomicron\Documents\191219_LABVIEW_Kuroda</Value>
+    </Setting>
+    <Setting Name="vbsFile" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="DataFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+  </Settings>
+</SettingsFile>

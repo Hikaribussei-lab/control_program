@@ -1,0 +1,13 @@
+const char css_str[] = ""
+  "button {"
+  "width:40%;"
+  "height:60px;"
+  "margin-left: 5px;"
+  "margin-right: 5px;"
+  "margin-bottom: 20px;"
+  "text-align: center;"
+  "text-decoration: none;"
+  "display: inline-block;"
+  "font-size: 32px;"
+  "}"
+  "";
