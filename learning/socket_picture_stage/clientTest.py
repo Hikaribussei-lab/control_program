@@ -5,8 +5,10 @@ import numpy as np
 import pickle
 from PIL import Image
 
-ip = "192.168.11.53"
+ip = "192.168.0.201"
 portnum = 1025
+
+
 
 if __name__ == '__main__':
     print("Ready")
