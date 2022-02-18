@@ -25,7 +25,8 @@ def volt():
     volt=float(data.decode())
     data = s.recv(1024)
     var = float(data.decode())
-    print ("電圧:{}, 分散:{}".format(volt, var))
+    print ("電圧:{}".format(volt))
+    print("分散:{}".format(var))
     return volt
 
 def ask_number():
@@ -41,7 +42,7 @@ if __name__ == '__main__':
         print (num_pulse)
         pulse = num_pulse
 
-    for num in range(2):
+    for num in range(64):
         #volt()
         volt_list.append(volt())
         time.sleep(1)
