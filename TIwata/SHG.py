@@ -38,7 +38,7 @@ pulse = 0
 if __name__ == '__main__':
     print("Ready")
     while pulse == 0:
-        num_pulse = input("what's the start number of pulse?")
+        num_pulse = input("What's the start number of pulse?")
         print (num_pulse)
         pulse = num_pulse
 
@@ -47,7 +47,7 @@ if __name__ == '__main__':
         volt_list.append(volt())
         time.sleep(1)
         move()
-        x_list.append(num*(-1000) + int(pulse))
+        x_list.append((num*(-1000) + int(pulse)) * 0.0025)
 
     plt.plot(x_list, volt_list)
     plt.show()
