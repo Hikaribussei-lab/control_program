@@ -36,7 +36,7 @@ class MercuryServer:
                         if not client_command:
                             break
                         tdatetime = dt.now() 
-                        string = f"Command from the client:{client_command} {tdatetime.strftime('%Y/%m/%d %H:%M:%S')}"
+                        string = f"Command from the client:{client_command} {tdatetime.strftime('%Y/%m/%d %H-%M-%S')}"
                         print(string)
                         if client_command == "quit":
                             quit_flag = 1
