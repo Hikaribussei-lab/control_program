@@ -33,6 +33,12 @@ class MercuryServer:
                         client_command = connection.recv(self.buffer_size).decode()  # command from client PC.
                         if not client_command:
                             break
+<<<<<<< HEAD
+=======
+                        tdatetime = dt.now() 
+                        string = f"Command from the client:{client_command} {tdatetime.strftime('%Y/%m/%d %H-%M-%S')}"
+                        print(string)
+>>>>>>> 5c8bb9455e4bccf5c59e0a7b0055d63696284d2a
                         if client_command == "quit":
                             quit_flag = 1
                         else:
