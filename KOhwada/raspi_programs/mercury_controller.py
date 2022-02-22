@@ -1,5 +1,3 @@
-import serial
-import sockets
 import pyvisa as visa
 import time
 
