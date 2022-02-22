@@ -11,6 +11,7 @@ import time
 # from datetime import datetime
 
 import mercury_client
+
 from repeated_timer import RepeatedTimer
 
 class MatplotlibWidget(QMainWindow):

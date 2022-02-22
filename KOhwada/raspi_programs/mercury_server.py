@@ -1,7 +1,6 @@
-from datetime import datetime as dt
+from datetime import datetime
 import socket
-
-import random
+import time
 
 import mercury_controller
 
@@ -28,39 +27,47 @@ class MercuryServer:
             print("Waiting for connection... ")
             while not quitFlag:
                 connection, address = s.accept()
-                print("Waiting for client's order...")
                 with connection:
                     quit_flag = False
                     while not quit_flag:
                         client_command = connection.recv(self.buffer_size).decode()  # command from client PC.
                         if not client_command:
                             break
-                        tdatetime = dt.now() 
-                        string = f"Command from the client:{client_command} {tdatetime.strftime('%Y/%m/%d %H-%M-%S')}"
-                        print(string)
                         if client_command == "quit":
                             quit_flag = 1
                         else:
                             data = self._server_operations(client_command)
                             connection.sendall(data.encode())
-                            print(data)
+                            print(f"GET => {data}")
+                            print("Waiting for client's order...")
                         
     
-    def _server_operations(self, client_command):
+    def _server_operations(self, order):
         """
         クライアントPCからの命令に沿ったデータを取得し、文字列として返す。
         """
-        if client_command == "random":                    
-            data = self.mc.randomtest()
-            
-        elif client_command == "constant":
-            data = self.mc.constanttest()
+        orders = order.split(";")
         
-        elif client_command == "time":
-            data = self.mc.timetest()
-     
-        return data
-
+        now = datetime.now()
+        snow = now.strftime('%Y/%m/%d %H-%M-%S')
+        sdate = snow.split(" ")[0]
+        stime = snow.split(" ")[1]
+        
+        get_time = time.time()  # UNIX時間
+        
+        datas = [f"DATE:{sdate}", f"TIME:{stime}", f"GETTIME:{get_time}"]
+        
+        if "TEMP" in orders:
+            _temp = self.mc.get_temperature()
+            datas.append(f"TEMP:{_temp}")
+        
+        if "POW" in orders:
+            _pow = self.mc.get_power()
+            datas.append(f"POW:{_pow}")
+        
+        data_string = ",".join(datas)
+        
+        return data_string
 
 if __name__ == "__main__":
     ms = MercuryServer()
