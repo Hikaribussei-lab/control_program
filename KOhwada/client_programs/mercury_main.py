@@ -29,7 +29,7 @@ class MatplotlibWidget(QMainWindow):
 
         # buttom oprations
         self.startbtn.clicked.connect(self.get_data_loop_func)
-        self.stopbtn.clicked.connect(self.stop_flag_up)
+        self.stopbtn.clicked.connect(self.stop_operations)
         self.clearbtn.clicked.connect(self.clear_graph)
         self.downloadbtn.clicked.connect(self.download)
 
@@ -135,7 +135,7 @@ class MatplotlibWidget(QMainWindow):
             else:
                 self.datas[_k] = np.append(self.datas[_k], float(_v))
         
-    def stop_flag_up(self):
+    def stop_operations(self):
         """
         stopボタンの処理
         """
@@ -156,8 +156,6 @@ class MatplotlibWidget(QMainWindow):
         
         if self.itx:
             self.download_as_itx(name, data_list)
-
-
 
     def csv_check_action(self, state):
         if state == 2:
