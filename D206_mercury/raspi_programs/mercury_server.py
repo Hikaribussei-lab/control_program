@@ -11,7 +11,7 @@ class MercuryServer:
     
     def __init__(self):
         self.portnum = 1025
-        self.ip_wired = "192.168.11.71"  #serverIP
+        self.ip_wired = "192.168.0.82"  #D206 server IP
         
         self.buffer_size = 1024  # 受信するコマンドの最大バイト数(２のべき乗の値にする)
         
@@ -38,9 +38,9 @@ class MercuryServer:
                         elif client_command == "stop":
                             self.mc.device.close()
                             self.mc.rm.close()
-                            retrun_string = "Connection with Mercury is closed."
-                            connection.sendall(s.encode())
-                            print(retrun_string)
+                            return_string = "Connection with Mercury is closed."
+                            connection.sendall(return_string.encode())
+                            print(return_string)
                         else:
                             data = self._server_operations(client_command)
                             connection.sendall(data.encode())

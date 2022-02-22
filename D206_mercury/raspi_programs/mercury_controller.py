@@ -30,7 +30,7 @@ class MercuryController:
         self.device.write("READ:DEV:MB1.T1:TEMP:SIG:TEMP")
         time.sleep(0.01)
         temp = self.device.read()
-        temp = temp.replace("STAT:DEV:MB1.T1:TEMP:SIG:TEMP:", "")
+        temp = temp.replace("STAT:DEV:MB1.T1:TEMP:SIG:TEMP:", "").replace("K", "")
 
         return temp
     
@@ -41,6 +41,6 @@ class MercuryController:
         self.device.write("READ:DEV:MB0.H1:HTR:SIG:POWR")
         time.sleep(0.01)
         pow = self.device.read()
-        pow = pow.replace("STAT:DEV:MB0.H1:HTR:SIG:POWR:", "")
+        pow = pow.replace("STAT:DEV:MB0.H1:HTR:SIG:POWR:", "").replace("W", "")
 
         return pow
