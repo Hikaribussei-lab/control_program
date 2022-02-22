@@ -38,9 +38,9 @@ class MercuryServer:
                         elif client_command == "stop":
                             # self.mc.device.close()
                             # self.mc.rm.close()
-                            s = "Connection with Mercury is closed."
+                            return_string = "Connection with Mercury is closed."
                             connection.sendall(s.encode())
-                            print(s)
+                            print(return_string)
                         else:
                             data = self._server_operations(client_command)
                             connection.sendall(data.encode())
