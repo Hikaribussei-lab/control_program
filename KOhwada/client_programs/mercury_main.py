@@ -140,6 +140,8 @@ class MatplotlibWidget(QMainWindow):
         stopボタンの処理
         """
         self.data_loop_thread.cancel()
+        return_string = self.mc.send_stop()
+        print(return_string)
     
     def clear_graph(self):
         self.MplWidget.canvas.axes1.clear()
