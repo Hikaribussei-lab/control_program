@@ -34,9 +34,12 @@ class MercuryServer:
                         client_command = connection.recv(self.buffer_size).decode()  # command from client PC.
                         if not client_command:
                             break
-                        if client_command == "quit":
+                        if client_command == "quit server":
                             quit_flag = 1
                             re = "Quit server."
+                        elif client_command == "start mercury":
+                            self.mc.connect_device()
+                            re = "Start Mercury"
                         elif client_command == "stop":
                             re = self._stop_operations()
                         elif client_command == "quit mercury":

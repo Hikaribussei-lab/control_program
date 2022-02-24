@@ -32,11 +32,13 @@ class MercuryMainWindow(QMainWindow, GetDatas, DownLoad):
         self.setWindowTitle("mercury")
 
         # buttom oprations
+        self.mercurystartbtn.clicked.connect(self.mercury_start)
         self.startbtn.clicked.connect(self.get_mercury_data)
         self.stopbtn.clicked.connect(self.stop_operations)
         self.clearbtn.clicked.connect(self.clear_graph)
-        self.quitbtn.clicked.connect(self.quit_operations)
         self.downloadbtn.clicked.connect(self.download)
+        self.mercuryquitbtn.clicked.connect(self.mercury_quit)
+        self.serverquitbtn.clicked.connect(self.server_quit)
 
         # checkbox oprations
         self.csvcheck.stateChanged.connect(self.csv_check_action)
@@ -47,6 +49,10 @@ class MercuryMainWindow(QMainWindow, GetDatas, DownLoad):
         self.mc = mercury_client.MercuryClient()
 
         self.stop_flag = 0
+    
+    def mercury_start(self):
+        return_string = self.mc.client_main(order="start mercury")
+        print(return_string)
 
     def get_mercury_data(self):
         self.start = time.time()  # UNIX時間
@@ -70,8 +76,12 @@ class MercuryMainWindow(QMainWindow, GetDatas, DownLoad):
         self.MplWidget.canvas.axes1.clear()
         self.MplWidget.canvas.axes2.clear()
         
-    def quit_operations(self):
-        return_string = self.mc.client_main(order="quit")
+    def mercury_quit(self):
+        return_string = self.mc.client_main(order="quit mercury")
+        print(return_string)
+    
+    def server_quit(self):
+        return_string = self.mc.client_main(order="quit server")
         print(return_string)
 
 if __name__ == "__main__":
