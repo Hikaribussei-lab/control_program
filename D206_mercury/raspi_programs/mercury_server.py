@@ -16,6 +16,7 @@ class MercuryServer:
         self.buffer_size = 1024  # 受信するコマンドの最大バイト数(２のべき乗の値にする)
         
         self.mc = mercury_controller.MercuryController()
+        self.mc_flag = 1
     
     def server_setup(self):
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
@@ -30,24 +31,24 @@ class MercuryServer:
                 with connection:
                     quit_flag = False
                     while not quit_flag:
+                        print("Waiting for client's order...")
                         client_command = connection.recv(self.buffer_size).decode()  # command from client PC.
                         if not client_command:
                             break
                         if client_command == "quit":
                             quit_flag = 1
+                            re = "Quit server."
                         elif client_command == "stop":
-                            self.mc.device.close()
-                            self.mc.rm.close()
-                            return_string = "Connection with Mercury is closed."
-                            connection.sendall(return_string.encode())
-                            print(return_string)
+                            re = self._stop_operations()
                         else:
-                            data = self._server_operations(client_command)
-                            connection.sendall(data.encode())
-                            print(f"GET => {data}")
-                            print("Waiting for client's order...")
-                        
-    
+                            if not self.mc_flag:
+                                self.mc.connect_device()  # Reconnect with Mercury
+                                self.mc_flag = 1
+
+                            re = self._server_operations(client_command)
+
+                        connection.sendall(re.encode())
+
     def _server_operations(self, order):
         """
         クライアントPCからの命令に沿ったデータを取得し、文字列として返す。
@@ -74,6 +75,15 @@ class MercuryServer:
         data_string = ",".join(datas)
         
         return data_string
+    
+    def _stop_operations(self):
+        self.mc.device.close()
+        self.mc.rm.close()
+        self.mc_flag = 0
+        return_string = "Connection with Mercury is closed."
+        print(return_string)
+
+        return return_string
 
 if __name__ == "__main__":
     ms = MercuryServer()

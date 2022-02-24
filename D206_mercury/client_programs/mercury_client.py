@@ -20,9 +20,9 @@ class MercuryClient:
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as soc:
             try:
                 soc.connect((self.ip, self.portnum))  # connect with server
-            except TimeoutError as e:
-                print("TimeOutError : You could not connect with server!")
-                exit()
+            except Exception as e:
+                print(e)
+                return "ERROR"
 
             soc.sendall(order.encode())  # send order to server
 
@@ -32,6 +32,10 @@ class MercuryClient:
 
     def get_data_from_mercury(self, order):
         data_string = self.client_main(order)  # ex) DATE:20220221,TIME:16-31-52,TEMP:302.1,POW:120.3
+
+        if data_string == "ERROR":
+            return data_string
+
         data_dict = {}
         for content in data_string.split(","):
             _kind = content.split(":")[0]
