@@ -48,6 +48,9 @@ class MercuryServer:
                             re = self._get_data_operations(client_command)
 
                         connection.sendall(re.encode())
+                        
+                        if quit_flag:
+                            exit()
 
     def _get_data_operations(self, order):
         """
@@ -85,7 +88,7 @@ class MercuryServer:
     def _mercury_quit_operations(self):
         self.mc.device.close()
         self.mc.rm.close()
-        return_string = "Quit server."
+        return_string = "Quit Mercury."
         print(return_string)
         
         return return_string

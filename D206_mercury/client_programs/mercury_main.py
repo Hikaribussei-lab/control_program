@@ -24,8 +24,8 @@ class MercuryMainWindow(QMainWindow, GetDatas, DownLoad):
         GetDatas.__init__(self)
         DownLoad.__init__(self)
 
-        self.mercury_root = "C:\\Users\hikaribussei\Projects\control_program\control_program\D206_mercury"
-        self.download_root = "C:\\Users\hikaribussei\Downloads"
+        self.mercury_root = "C:\\Users\okiyo\Desktop\光物性研究室\control_program\D206_mercury"
+        self.download_root = "C:\\Users\okiyo\Downloads"
 
         loadUi(f"{self.mercury_root}\mercury_ui_files\main_window.ui", self)
 

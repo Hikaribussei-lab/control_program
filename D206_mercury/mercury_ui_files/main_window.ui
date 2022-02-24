@@ -191,38 +191,44 @@
     <string>Mercury Start</string>
    </property>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QPushButton" name="serverquitbtn">
    <property name="geometry">
     <rect>
-     <x>630</x>
-     <y>470</y>
-     <width>151</width>
-     <height>111</height>
+     <x>631</x>
+     <y>511</y>
+     <width>105</width>
+     <height>28</height>
     </rect>
    </property>
-   <layout class="QVBoxLayout" name="verticalLayout_2">
-    <item>
-     <widget class="QPushButton" name="mercuryquitbtn">
-      <property name="text">
-       <string>Mercury Quit</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QPushButton" name="serverquitbtn">
-      <property name="text">
-       <string>Server Quit</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QPushButton" name="windowquitbtn">
-      <property name="text">
-       <string>Window Quit</string>
-      </property>
-     </widget>
-    </item>
-   </layout>
+   <property name="text">
+    <string>Server Quit</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="mercuryquitbtn">
+   <property name="geometry">
+    <rect>
+     <x>631</x>
+     <y>474</y>
+     <width>118</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Mercury Quit</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="windowquitbtn">
+   <property name="geometry">
+    <rect>
+     <x>631</x>
+     <y>548</y>
+     <width>112</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Window Quit</string>
+   </property>
   </widget>
  </widget>
  <customwidgets>
