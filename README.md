@@ -11,6 +11,8 @@
 * [プログラミングメモ](#note)
     * [マルチスレッド処理と定期実行](#mlitthread)
     * [高DPI対応](#hightdpi)
+* [既知の問題](#problem)
+    * [pyvisaでのTimeout](#timeoutinpyvisa)
 * [作成者](#author)
 
 <h1 id="program">プログラム名と機能</h1>
@@ -95,7 +97,15 @@ GUI画面上でグラフを動的に描画するには、画面表示とは別�
 ウィンドウを高いDPIを持つ画面(ノートPCなど)で表示するとUIが崩れる(モニターで作ったため)。
 これを防ぐために高DPIに対応させる必要がる。
 下記のWebサイトを参考に、対応させた。
+
 <a href="https://leomoon.com/journal/python/high-dpi-scaling-in-pyqt5/" target="_blank">高DPI対応の参考</a>  
+
+
+<h1 id="problem">既知の問題</h1>
+<h2 id="timeoutinpyvisa">pyvisaでのTimeout</h2>
+サーバ側で「Timeout expired before operation completed.」が表示され、エラー終了する。  
+クライアント側のデータ取得間隔(Interval)を長くするとうまく動く。
+ネット回線のスピードが問題で、命令がきちんとした間隔でMercuryに送られていないと思われる。
 
 <h1 id="author">作成者</h1>
 
