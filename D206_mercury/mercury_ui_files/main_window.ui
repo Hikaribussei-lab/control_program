@@ -49,19 +49,6 @@
     </sizepolicy>
    </property>
   </widget>
-  <widget class="QPushButton" name="quitbtn">
-   <property name="geometry">
-    <rect>
-     <x>660</x>
-     <y>520</y>
-     <width>101</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Quit</string>
-   </property>
-  </widget>
   <widget class="QGroupBox" name="groupBox">
    <property name="geometry">
     <rect>
@@ -133,7 +120,7 @@
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>460</y>
+     <y>480</y>
      <width>196</width>
      <height>20</height>
     </rect>
@@ -191,6 +178,52 @@
     </property>
    </widget>
   </widget>
+  <widget class="QPushButton" name="mercurystartbtn">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>410</y>
+     <width>131</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Mercury Start</string>
+   </property>
+  </widget>
+  <widget class="QWidget" name="">
+   <property name="geometry">
+    <rect>
+     <x>630</x>
+     <y>470</y>
+     <width>151</width>
+     <height>111</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout_2">
+    <item>
+     <widget class="QPushButton" name="mercuryquitbtn">
+      <property name="text">
+       <string>Mercury Quit</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="serverquitbtn">
+      <property name="text">
+       <string>Server Quit</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="windowquitbtn">
+      <property name="text">
+       <string>Window Quit</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
  </widget>
  <customwidgets>
   <customwidget>
@@ -203,7 +236,7 @@
  <resources/>
  <connections>
   <connection>
-   <sender>quitbtn</sender>
+   <sender>windowquitbtn</sender>
    <signal>clicked()</signal>
    <receiver>QWidget</receiver>
    <slot>close()</slot>
