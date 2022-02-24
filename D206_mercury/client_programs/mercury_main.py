@@ -26,8 +26,8 @@ class MatplotlibWidget(QMainWindow):
 
         QMainWindow.__init__(self)
 
-        self.mercury_root = "C:\\Users\okiyo\Desktop\光物性研究室\control_program\D206_mercury"
-        self.download_root = "C:\\Users\okiyo\Downloads"
+        self.mercury_root = "C:\\Users\hikaribussei\Projects\control_program\control_program\D206_mercury"
+        self.download_root = "C:\\Users\hikaribussei\Downloads"
 
         loadUi(f"{self.mercury_root}\mercury_ui_files\main_window.ui", self)
 
