@@ -12,7 +12,7 @@ class MercuryController:
         self.usb = "ASR"
         self.rm = visa.ResourceManager()
 
-        self.connect_device()
+        # self.connect_device()
     
     def connect_device(self):
         """

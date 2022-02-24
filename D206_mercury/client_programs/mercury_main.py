@@ -35,6 +35,7 @@ class MercuryMainWindow(QMainWindow, GetDatas, DownLoad):
         self.startbtn.clicked.connect(self.get_mercury_data)
         self.stopbtn.clicked.connect(self.stop_operations)
         self.clearbtn.clicked.connect(self.clear_graph)
+        self.quitbtn.clicked.connect(self.quit_operations)
         self.downloadbtn.clicked.connect(self.download)
 
         # checkbox oprations
@@ -62,12 +63,16 @@ class MercuryMainWindow(QMainWindow, GetDatas, DownLoad):
         stopボタンの処理
         """
         self.data_loop_thread.cancel()
-        return_string = self.mc.send_stop()
+        return_string = self.mc.client_main(order="stop")
         print(return_string)
 
     def clear_graph(self):
         self.MplWidget.canvas.axes1.clear()
         self.MplWidget.canvas.axes2.clear()
+        
+    def quit_operations(self):
+        return_string = self.mc.client_main(order="quit")
+        print(return_string)
 
 if __name__ == "__main__":
     app = QApplication([])

@@ -43,6 +43,3 @@ class MercuryClient:
             data_dict[_kind] = _value
 
         return data_dict
-
-    def send_stop(self):
-        return self.client_main(order="stop")

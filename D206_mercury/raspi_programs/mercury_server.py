@@ -16,7 +16,6 @@ class MercuryServer:
         self.buffer_size = 1024  # 受信するコマンドの最大バイト数(２のべき乗の値にする)
         
         self.mc = mercury_controller.MercuryController()
-        self.mc_flag = 1
     
     def server_setup(self):
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
@@ -40,16 +39,14 @@ class MercuryServer:
                             re = "Quit server."
                         elif client_command == "stop":
                             re = self._stop_operations()
+                        elif client_command == "quit mercury":
+                            re = self._mercury_quit_operations()
                         else:
-                            if not self.mc_flag:
-                                self.mc.connect_device()  # Reconnect with Mercury
-                                self.mc_flag = 1
-
-                            re = self._server_operations(client_command)
+                            re = self._get_data_operations(client_command)
 
                         connection.sendall(re.encode())
 
-    def _server_operations(self, order):
+    def _get_data_operations(self, order):
         """
         クライアントPCからの命令に沿ったデータを取得し、文字列として返す。
         """
@@ -77,12 +74,17 @@ class MercuryServer:
         return data_string
     
     def _stop_operations(self):
-        self.mc.device.close()
-        self.mc.rm.close()
-        self.mc_flag = 0
         return_string = "Connection with Mercury is closed."
         print(return_string)
 
+        return return_string
+    
+    def _mercury_quit_operations(self):
+        self.mc.device.close()
+        self.mc.rm.close()
+        return_string = "Quit server."
+        print(return_string)
+        
         return return_string
 
 if __name__ == "__main__":
