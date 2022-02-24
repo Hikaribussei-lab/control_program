@@ -7,7 +7,7 @@ class MercuryClient:
     def __init__(self):
         self.ip = "192.168.0.82"  # server IP address
         self.portnum = 1025
-        
+
         self.buffer_size = 1024  # 受信するコマンドの最大バイト数(２のべき乗の値にする)
 
     def client_main(self, order):
@@ -18,12 +18,16 @@ class MercuryClient:
         """
 
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as soc:
-            soc.connect((self.ip, self.portnum))  # connect with server
-            
+            try:
+                soc.connect((self.ip, self.portnum))  # connect with server
+            except TimeoutError as e:
+                print("TimeOutError : You could not connect with server!")
+                exit()
+
             soc.sendall(order.encode())  # send order to server
 
             data = soc.recv(self.buffer_size).decode()  # get the data from server as string
-        
+
         return data
 
     def get_data_from_mercury(self, order):
@@ -38,9 +42,3 @@ class MercuryClient:
 
     def send_stop(self):
         return self.client_main(order="stop")
-        
-
-
-
-
-

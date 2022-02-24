@@ -1,5 +1,11 @@
 from PyQt5.QtWidgets import*
 from PyQt5.uic import loadUi
+from PyQt5 import QtWidgets, QtCore  # pyqt stuff
+
+QtWidgets.QApplication.setAttribute(
+    QtCore.Qt.AA_EnableHighDpiScaling, True)  # enable highdpi scaling
+QtWidgets.QApplication.setAttribute(
+    QtCore.Qt.AA_UseHighDpiPixmaps, True)  # use highdpi icons
 
 from matplotlib.backends.backend_qt5agg import (NavigationToolbar2QT as NavigationToolbar)
 
@@ -15,9 +21,9 @@ import mercury_client
 from repeated_timer import RepeatedTimer
 
 class MatplotlibWidget(QMainWindow):
-    
+
     def __init__(self):
-        
+
         QMainWindow.__init__(self)
 
         self.mercury_root = "C:\\Users\okiyo\Desktop\光物性研究室\control_program\D206_mercury"
@@ -85,7 +91,7 @@ class MatplotlibWidget(QMainWindow):
         interval = float(self.interval.text())
         self.data_loop_thread = RepeatedTimer(interval, self.get_data, args=(order,))
         self.data_loop_thread.start()
-
+        
     def get_data_loop(self):
         """
         実際にデータを取得して描画をループする関数
