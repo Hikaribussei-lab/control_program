@@ -23,6 +23,14 @@ D206にある温度計「Mercury」を制御する。
 クライアントPCからsocket通信でRaspberryPiに命令を出し、RaspberryPiがMercuryとシリアル通信を行う。命令に沿って取得されたデータをGUI画面上にプロットする。収束したデータは、CSVとitx形式で保存可能。  
 2022年2月時点では温度とパワーを取得するようになっている。
 
+<h3>PC毎に変更すべき箇所</h3>
+client_programs/mercury_main.py内のインスタンス変数
+
+```bash
+self.mercury_root = (Path to D206_mercury directry)
+self.download_root = (Path to Download directry)
+```
+
 <h3>起動方法</h3>
 
 contorol_programディレクトリまで移動。  

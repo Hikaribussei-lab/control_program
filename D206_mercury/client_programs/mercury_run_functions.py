@@ -67,6 +67,9 @@ class GetDatas(UpDateGraph):
                 self.datas[_k].append(_v)
             else:
                 self.datas[_k] = np.append(self.datas[_k], float(_v))
+    
+    def data_init(self):
+        self.__init__()
 
 class DownLoad:
     

@@ -35,7 +35,7 @@ class MercuryMainWindow(QMainWindow, GetDatas, DownLoad):
         self.mercurystartbtn.clicked.connect(self.mercury_start)
         self.startbtn.clicked.connect(self.get_mercury_data)
         self.stopbtn.clicked.connect(self.stop_operations)
-        self.clearbtn.clicked.connect(self.clear_graph)
+        self.clearbtn.clicked.connect(self.clear_operations)
         self.downloadbtn.clicked.connect(self.download)
         self.mercuryquitbtn.clicked.connect(self.mercury_quit)
         self.serverquitbtn.clicked.connect(self.server_quit)
@@ -72,9 +72,10 @@ class MercuryMainWindow(QMainWindow, GetDatas, DownLoad):
         return_string = self.mc.client_main(order="stop")
         print(return_string)
 
-    def clear_graph(self):
+    def clear_operations(self):
         self.MplWidget.canvas.axes1.clear()
         self.MplWidget.canvas.axes2.clear()
+        # self.data_init()
         
     def mercury_quit(self):
         return_string = self.mc.client_main(order="quit mercury")

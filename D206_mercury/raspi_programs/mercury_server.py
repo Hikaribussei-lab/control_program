@@ -80,7 +80,7 @@ class MercuryServer:
         return data_string
     
     def _stop_operations(self):
-        return_string = "Connection with Mercury is closed."
+        return_string = "Stop get data from Mercury."
         print(return_string)
 
         return return_string
