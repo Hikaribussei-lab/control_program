@@ -45,11 +45,19 @@ class MercuryMainWindow(QMainWindow, GetDatas, DownLoad):
         self.itxcheck.stateChanged.connect(self.itx_check_action)
 
         self.addToolBar(NavigationToolbar(self.MplWidget.canvas, self))
+        self.graph_init()
 
         self.mc = mercury_client.MercuryClient()
 
         self.stop_flag = 0
     
+    def graph_init(self):
+        self.MplWidget.canvas.axes1.set_xlim(0, 10)
+        self.MplWidget.canvas.axes2.set_xlim(0, 10)
+        self.MplWidget.canvas.axes2.set_xlabel("Elapsed time (s)")
+        self.MplWidget.canvas.axes1.set_ylabel("Temperature (K)")
+        self.MplWidget.canvas.axes2.set_ylabel("Power (W)")
+
     def mercury_start(self):
         return_string = self.mc.client_main(order="start mercury")
         print(return_string)

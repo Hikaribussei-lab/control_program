@@ -4,6 +4,9 @@ import numpy as np
 
 
 class UpDateGraph:
+    def __init__(self) -> None:
+        self.tmerge = 0.5  # mergin size of plot range
+
     def update_graph(self):
         """
         グラフを書く
@@ -18,11 +21,21 @@ class UpDateGraph:
             elif k == "POW":
                 self.MplWidget.canvas.axes2.plot(
                     self.elapsed_time, v, label=k, marker="o")  # power
+        
+        self.update_plot_range()
 
-        self.MplWidget.canvas.axes2.set_xlabel("Elapsed time (s)")
-        self.MplWidget.canvas.axes1.set_ylabel("Temperature (K)")
-        self.MplWidget.canvas.axes2.set_ylabel("Power (W)")
         self.MplWidget.canvas.draw()
+    
+    def update_plot_range(self):
+        plot_range = float(self.plotrange.text())
+
+        tmax = self.elapsed_time[-1] + self.tmerge
+        if tmax < plot_range:
+            tmax = plot_range
+
+        tmin = tmax - plot_range - self.tmerge
+        self.MplWidget.canvas.axes1.set_xlim(tmin, tmax)
+        self.MplWidget.canvas.axes2.set_xlim(tmin, tmax)
 
 class GetDatas(UpDateGraph):
     """
