@@ -20,15 +20,20 @@
 <h2 id="mercury">D206_mercury</h2>
 
 D206にある温度計「Mercury」を制御する。  
-クライアントPCからsocket通信でRaspberryPiに命令を出し、RaspberryPiがMercuryとシリアル通信を行う。命令に沿って取得されたデータをGUI画面上にプロットする。収束したデータは、CSVとitx形式で保存可能。  
-2022年2月時点では温度とパワーを取得するようになっている。
+クライアントPCからsocket通信でRaspberryPiに命令を出し、RaspberryPiがMercuryとシリアル通信を行う。
+命令に沿って取得されたデータをGUI画面上にプロットする。
+収集したデータは、CSVとitx形式で保存可能。  
+2022年2月時点では温度とパワーを設定時間(Interval)毎に取得するようになっている。
+取得時間はUnix時間で記録される。
+経過時間で更生したいときには、初めのデータ取得時間とそれ以降の時間の差を取れば良い。
+日付に直したいときには、「Unix時間　変換」で調べると出てくる。
 
 <h3>PC毎に変更すべき箇所</h3>
 client_programs/mercury_main.py内のインスタンス変数
 
 ```bash
-self.mercury_root = (Path to D206_mercury directry)
-self.download_root = (Path to Download directry)
+self.mercury_root = (Path to your D206_mercury directry)
+self.download_root = (Path to your Download directry)
 ```
 
 <h3>起動方法</h3>
@@ -42,6 +47,7 @@ contorol_programディレクトリまで移動。
 GUI画面が起動する。
 
 <RaspberryPi側>  
+VNC Viewerを使って、リモートデスクトップから実行する。
 ```bash
 % python3 D206_mercury/raspi_programs/mercury_server.py
 ```
@@ -114,6 +120,7 @@ GUI画面上でグラフを動的に描画するには、画面表示とは別�
 サーバ側で「Timeout expired before operation completed.」が表示され、エラー終了する。  
 クライアント側のデータ取得間隔(Interval)を長くするとうまく動く。
 ネット回線のスピードが問題で、命令がきちんとした間隔でMercuryに送られていないと思われる。
+RaspberryPiをD206に置くと安定した。
 
 <h1 id="author">作成者</h1>
 
