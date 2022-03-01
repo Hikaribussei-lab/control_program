@@ -19,7 +19,7 @@ class MercuryClient:
 
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as soc:
             try:
-                soc.connect((self.ip, self.portnum))  # connect with server
+                soc.connect((self.ip, self.portnum))  # connect to server
             except Exception as e:
                 print(e)
                 return "ERROR"

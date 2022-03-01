@@ -2,6 +2,7 @@ import csv
 import igorwriter
 import numpy as np
 
+from mercury_dataclass import MercuryData
 
 class UpDateGraph:
     def __init__(self) -> None:
@@ -53,6 +54,9 @@ class GetDatas(UpDateGraph):
     def get_data_plot(self, order):
         """
         実際にデータを取得し描画する関数
+        
+        Args:
+            order (string): Mercuryへの命令文 ex)TEMP;POW
         """
         _data_dict = self.mc.get_data_from_mercury(order)  # get data from Mersury
         if _data_dict != "ERROR":
@@ -62,6 +66,9 @@ class GetDatas(UpDateGraph):
     def _make_datas(self, data_dict):
         """
         1ループ分のデータを辞書型で受け取り、今までのものと結合する。
+        
+        Args:
+            data_dict (Dict): 
         """
         # for datetime
         gettime = float(data_dict["GETTIME"])
