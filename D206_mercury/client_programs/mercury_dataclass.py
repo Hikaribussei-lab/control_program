@@ -1,5 +1,4 @@
-from dataclasses import dataclass
-import time
+from dataclasses import dataclass, field
 from typing import List
 
 @dataclass
@@ -9,8 +8,8 @@ class MercuryData:
 
     Attributes
     -----------
-    inst_time : float
-        インスタンス化されたときのUnix時間。
+    date_time : List
+        データ取得日時(秒まで)
 
     temperature : List
         温度が格納されるリスト。
@@ -30,22 +29,24 @@ class MercuryData:
         データをリスト型のオブジェクト変数に追加する。
     """
 
-    inst_time: float = time.time()
-    temperature: List = []
-    power: List = []
-    get_time: List = []
-    elapsed_time: List = []
+    date_time: list[str] = field(default_factory=list)
+    temperature: list[float] = field(default_factory=list)
+    power: list[float] = field(default_factory=list)
+    get_time: list[float] = field(default_factory=list)
+    elapsed_time: list[float] = field(default_factory=list)
 
-    def add_datas(self, temp: float, pow: float, gt: float):
+    def add_datas(self, date: str, time: str, temp: float, pow: float, gt: float):
         """
         取得したデータをオブジェクト変数に追加する。
 
         Args:
+            date (str): 日付
+            time (str): 時間(秒まで)
             temp (float): 温度
             pow (float): パワー
             gt (flaot): データ取得時間
         """
-
+        self.date_time.append(f"{date} {time}")
         self.temperature.append(temp)
         self.power.append(pow)
         self.get_time.append(gt)

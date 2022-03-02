@@ -2,9 +2,10 @@ import csv
 import igorwriter
 import numpy as np
 
+from mercury_client import MercuryClient
 from mercury_dataclass import MercuryData
 
-class UpDateGraph:
+class UpdateGraph:
     def __init__(self) -> None:
         self.tmerge = 0.5  # mergin size of plot range
 
@@ -15,22 +16,32 @@ class UpDateGraph:
         self.MplWidget.canvas.axes1.clear()
         self.MplWidget.canvas.axes2.clear()
 
-        for k, v in zip(self.datas.keys(), self.datas.values()):
-            if k == "TEMP":
-                self.MplWidget.canvas.axes1.plot(
-                    self.elapsed_time, v, label=k, marker="o")  # temperature
-            elif k == "POW":
-                self.MplWidget.canvas.axes2.plot(
-                    self.elapsed_time, v, label=k, marker="o")  # power
-        
-        self.update_plot_range()
+        et = self.data.elapsed_time
+
+        self.MplWidget.canvas.axes1.plot(
+            et, self.data.temperature, marker="o")
+        self.MplWidget.canvas.axes2.plot(
+            et, self.data.power, marker="o")
+
+        self.update_plot_range(et)
+
+        self.MplWidget.canvas.axes2.set_xlabel("Elapsed time (s)")
+        self.MplWidget.canvas.axes1.set_ylabel("Temperature (K)")
+        self.MplWidget.canvas.axes2.set_ylabel("Power (W)")
+
 
         self.MplWidget.canvas.draw()
-    
-    def update_plot_range(self):
+
+    def update_plot_range(self, elapsed_time):
+        """
+        グラフの横軸幅を固定し、データ取得毎に更新する。
+
+        Args:
+            elapsed_time (List)): 経過時間のリスト
+        """
         plot_range = float(self.plotrange.text())
 
-        tmax = self.elapsed_time[-1] + self.tmerge
+        tmax = elapsed_time[-1] + self.tmerge
         if tmax < plot_range:
             tmax = plot_range
 
@@ -38,55 +49,50 @@ class UpDateGraph:
         self.MplWidget.canvas.axes1.set_xlim(tmin, tmax)
         self.MplWidget.canvas.axes2.set_xlim(tmin, tmax)
 
-class GetDatas(UpDateGraph):
+class GetDatas(UpdateGraph):
     """
     データを取得し整形する。
     """
     def __init__(self):
-        
-        UpDateGraph.__init__(self)
-        
+
+        UpdateGraph.__init__(self)
+
         self.kinds = ["TEMP", "POW"]  # 取得するデータの名前
 
-        self.datas = {"DATE": [], "TIME": [], "GETTIME": []}  # 取得データ. 日付と時間は常に取得
-        self.elapsed_time = np.array([])  # 経過時間
+        self.mc = MercuryClient()
+        self.data = MercuryData()
 
     def get_data_plot(self, order):
         """
-        実際にデータを取得し描画する関数
-        
+        実際にデータを取得し描画する関数。
+        RepeatedTIimer内で定期実行される。
+
         Args:
             order (string): Mercuryへの命令文 ex)TEMP;POW
         """
-        _data_dict = self.mc.get_data_from_mercury(order)  # get data from Mersury
-        if _data_dict != "ERROR":
-            self._make_datas(_data_dict)
+        data_string = self.mc.client_main(order)  # get data from Mersury
+        if data_string != "ERROR":
+            self._make_datas(data_string)
             self.update_graph()
 
-    def _make_datas(self, data_dict):
+    def _make_datas(self, data_string):
         """
         1ループ分のデータを辞書型で受け取り、今までのものと結合する。
-        
+
         Args:
-            data_dict (Dict): 
+            data_string (string): ex) DATE:20220221,TIME:16-31-52,GETTIME:13200224.2464,TEMP:302.1,POW:120.3
         """
-        # for datetime
-        gettime = float(data_dict["GETTIME"])
-        delta = gettime - self.start
-        self.elapsed_time = np.append(self.elapsed_time, delta)
-
-        # for datas
-        _kinds = data_dict.keys()
-        _values = data_dict.values()
-
-        for _k, _v in zip(_kinds, _values):
-            if _k not in self.datas.keys():
-                self.datas[_k] = np.array([])
-
-            if _k in ["DATE", "TIME", "GETTIME"]:
-                self.datas[_k].append(_v)
-            else:
-                self.datas[_k] = np.append(self.datas[_k], float(_v))
+        data_dict = {}
+        for content in data_string.split(","):
+            _kind = content.split(":")[0]
+            _value = content.split(":")[1]
+            data_dict[_kind] = _value
+        
+        self.data.add_datas(date=data_dict["DATE"],
+                            time=data_dict["TIME"],
+                            temp=float(data_dict["TEMP"]),
+                            pow=float(data_dict["POW"]),
+                            gt=float(data_dict["GETTIME"]))
     
     def data_init(self):
         self.__init__()

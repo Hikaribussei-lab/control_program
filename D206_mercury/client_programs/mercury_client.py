@@ -1,6 +1,4 @@
 import socket
-from datetime import datetime
-import random
 
 class MercuryClient:
 
@@ -14,7 +12,7 @@ class MercuryClient:
         """
         サーバ(Raspberry pi)に命令を投げ、返り値を受け取る。
         返り値例
-        DATE:20220221;TIME:16-31-52,TEMP:302.1;POW:120.3
+        DATE:20220221,TIME:16-31-52,GETTIME:13200224.2464,TEMP:302.1,POW:120.3
         """
 
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as soc:
@@ -30,16 +28,16 @@ class MercuryClient:
 
         return data
 
-    def get_data_from_mercury(self, order):
-        data_string = self.client_main(order)  # ex) DATE:20220221,TIME:16-31-52,TEMP:302.1,POW:120.3
+    # def get_data_from_mercury(self, order):
+    #     data_string = self.client_main(order)  # ex) DATE:20220221,TIME:16-31-52,GETTIME:13200224.2464,TEMP:302.1,POW:120.3
 
-        if data_string == "ERROR":
-            return data_string
+    #     if data_string == "ERROR":
+    #         return data_string
 
-        data_dict = {}
-        for content in data_string.split(","):
-            _kind = content.split(":")[0]
-            _value = content.split(":")[1]
-            data_dict[_kind] = _value
+    #     data_dict = {}
+    #     for content in data_string.split(","):
+    #         _kind = content.split(":")[0]
+    #         _value = content.split(":")[1]
+    #         data_dict[_kind] = _value
 
-        return data_dict
+    #     return data_dict

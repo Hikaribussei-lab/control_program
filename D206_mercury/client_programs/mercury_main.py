@@ -63,10 +63,10 @@ class MercuryMainWindow(QMainWindow, GetDatas, DownLoad):
         print(return_string)
 
     def get_mercury_data(self):
-        self.start = time.time()  # UNIX時間
-
+        """
+        Startボタンを押すと起動する関数。
+        """
         order = ";".join(self.kinds)
-
         interval = float(self.interval.text())
         self.data_loop_thread = RepeatedTimer(
             interval, self.get_data_plot, args=(order,))
