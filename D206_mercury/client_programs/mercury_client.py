@@ -20,6 +20,8 @@ class MercuryClient:
                 soc.connect((self.ip, self.portnum))  # connect to server
             except Exception as e:
                 print(e)
+                print("ERROR!! Froce stop!!")
+                exit()
                 return "ERROR"
 
             soc.sendall(order.encode())  # send order to server

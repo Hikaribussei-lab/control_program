@@ -1,4 +1,5 @@
 import csv
+import dataclasses
 import igorwriter
 import numpy as np
 
@@ -87,31 +88,33 @@ class GetDatas(UpdateGraph):
             _kind = content.split(":")[0]
             _value = content.split(":")[1]
             data_dict[_kind] = _value
-        
+
         self.data.add_datas(date=data_dict["DATE"],
                             time=data_dict["TIME"],
                             temp=float(data_dict["TEMP"]),
                             pow=float(data_dict["POW"]),
                             gt=float(data_dict["GETTIME"]))
-    
+
     def data_init(self):
         self.__init__()
 
 class DownLoad:
-    
+
     def __init__(self) -> None:
         self.csv = 1
         self.itx = 1
-    
+
     def download(self):
+        """
+        データをDownloadフォルダにCSVとitx形式で保存する。
+        """
         name = self.name.text()
-        data_list = self.fix_data_for_download()
 
         if self.csv:
-            self.download_as_csv(name, data_list)
+            self.download_as_csv(name)
 
         if self.itx:
-            self.download_as_itx(name, data_list)
+            self.download_as_itx(name)
 
     def csv_check_action(self, state):
         if state == 2:
@@ -125,33 +128,26 @@ class DownLoad:
         else:
             self.itx = 0
 
-    def fix_data_for_download(self):
-        data_array = np.array([], dtype="U1")
-        for v in self.datas.values():
-            data_array = np.append(data_array, v)
-
-        rsize = len(self.datas.keys())
-        csize = int(data_array.shape[0] / rsize)
-        data_array = data_array.reshape(rsize, csize)
-
-        return data_array
-
-    def download_as_csv(self, name, data):
+    def download_as_csv(self, name):
         path = f"{self.download_root}/{name}.csv"
 
-        data_list = data.T.tolist()
+        data_list = list(dataclasses.asdict(self.data).values())
+        print(data_list)
+        data_list = np.array(data_list, dtype="U").T.tolist()
+        print(data_list)
 
         with open(path, mode="w") as f:
             writer = csv.writer(f)
-            writer.writerow(self.datas.keys())
+            writer.writerow(dataclasses.asdict(self.data).keys())
             writer.writerows(data_list)
 
-    def download_as_itx(self, name, data):
+    def download_as_itx(self, name):
         path = f"{self.download_root}/{name}.itx"
-        wave_names = self.datas.keys()
+        wave_names = dataclasses.asdict(self.data).keys()
+        data = dataclasses.asdict(self.data).values()
         with open(path, mode="w") as f:
             for _wn, _d in zip(wave_names, data):
-                if _wn not in ["DATE", "TIME"]:  # only for not string data
+                if _wn not in ["date_time"]:  # only for not string data
                     wave = igorwriter.IgorWave(
                         np.array(_d, dtype=float), name=_wn)
                     wave.save_itx(f)
