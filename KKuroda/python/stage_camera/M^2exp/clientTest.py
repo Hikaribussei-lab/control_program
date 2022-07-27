@@ -13,7 +13,7 @@ if __name__ == '__main__':
         command = input()
         if command == "Q":
             break
-        if command == "M":
+        if command == "T":
             with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                 s.connect((ip, portnum))
                 command = "measure"
@@ -54,6 +54,27 @@ if __name__ == '__main__':
             with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                 s.connect((ip, portnum))
                 command = "iso" + str(iso)
+                s.sendall(command.encode())
+                data = s.recv(1024)
+                print(repr(data.decode()))
+        if command == "M":
+            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+                s.connect((ip, portnum))
+                command = "move_stage"
+                s.sendall(command.encode())
+                data = s.recv(1024)
+                print(repr(data.decode()))
+        if command == "H":
+            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+                s.connect((ip, portnum))
+                command = "move_stage_home"
+                s.sendall(command.encode())
+                data = s.recv(1024)
+                print(repr(data.decode()))
+        if command[0:1] == "ST":
+            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+                s.connect((ip, portnum))
+                command = "step"+str(cmmand[1:])
                 s.sendall(command.encode())
                 data = s.recv(1024)
                 print(repr(data.decode()))

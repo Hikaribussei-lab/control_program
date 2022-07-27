@@ -16,7 +16,7 @@ from PIL import Image
 from datetime import datetime
 import RPi.GPIO as GPIO
 from set_picamera_gain import set_analog_gain, set_digital_gain
-
+from linearstage import AutoStage
 
 #  Variables setting
 image_directory = "/home/pi/Desktop/Image/"
@@ -26,6 +26,7 @@ iso = 100  # 100 recommended
 ag = 1  # 1 recommended
 dg = 1  # 1 recommended
 pinnum = 27  # Pin number in BCM for flashing signal
+step = 1000 
 
 #  for socket communication
 portnum = 1025
@@ -161,19 +162,23 @@ if __name__ == '__main__':
     print("Ready")
     while True:
         command = input("Command:")
-        if command[0] == 'W':
-            ser = serial.Serial(COM, bitrate, timeout=0.1)
+        if command[0] == 'S':
+            array = takeImage()
+            filename = datetime.now().strftime("Img_%Y%m%d_%H%M%S.png")
+            img = Image.fromarray((array / 4).astype(np.uint8))
+            img.save(filename)
+            print(filename)
+        if command == 'M':# move stage
+            stage = AutoStage(stageport)
+            stage.stop()
+            print("stage.um += " + str(cam.step))
+            stage.um += cam.step
+            print(f">>> {stage.um}\n")
+        if command == 'H':# move tage to home
+            stage = AutoStage(stageport)
+            stage.stop()
             ser.write("H:W\r\n".encode())
-            
-        if command == 'S':
-            ser = serial.Serial(COM, bitrate, timeout=0.1)
-            str="A:1+P"+str(cam.step)+"\r\n"
-            #c=bytes(str, encoding="utf-8")
-            ser.write(str.encode())
-            c=b"G:\r\n"
-            ser.write(c)
-            print(ser.read_all())
-            ser.close()
+            print(f">>> {stage.um}\n")
         if command == 'C':
             os.makedirs(save_directory, exist_ok=True)
             os.chdir(save_directory)
@@ -235,14 +240,21 @@ if __name__ == '__main__':
                             elif command == 'home':
                                 ser = serial.Serial(COM, bitrate, timeout=0.1)
                                 ser.write("H:W\r\n".encode())
-                            elif command == 'move':
-                                ser = serial.Serial(COM, bitrate, timeout=0.1)
+                            elif command == "move_stage":
+                                stage = AutoStage(stageport)
+                                stage.stop()
+                                stage.um += cam.step
+                                print(f"moved >>> {stage.um}\n")
+                                connection.sendall(f"moved >>> {stage.um}".encode())
+                            elif command == "move_stage_home":
+                                stage = AutoStage(stageport)
+                                stage.stop()
                                 ser.write("H:W\r\n".encode())
+                                print(f">>> {stage.um}\n")
                             elif command[0:4] == "step":
                                 cam.step = int(command[4:])
                                 connection.sendall(b'OK')
                                 break
-                            
                             else:
                                 connection.sendall(b'NG')
         if command == 'Q':
