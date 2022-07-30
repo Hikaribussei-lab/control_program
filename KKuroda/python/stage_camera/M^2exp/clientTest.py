@@ -5,7 +5,7 @@ import numpy as np
 from PIL import Image
 
 ip = "192.168.0.202"
-portnum = 54321
+portnum = 1025
 
 if __name__ == '__main__':
     print("Ready")

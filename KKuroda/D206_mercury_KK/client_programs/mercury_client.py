@@ -5,7 +5,7 @@ import random
 class MercuryClient:
 
     def __init__(self):
-                self.ip = "192.168.0.82"  # server IP address
+        self.ip = "192.168.0.82"  # server IP address
         self.portnum = 1025
 
         self.buffer_size = 1024  # 受信するコマンドの最大バイト数(２のべき乗の値にする)
