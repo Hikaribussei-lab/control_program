@@ -1,0 +1,28 @@
+;//***************************************************************************
+;/ File:			DLL.def
+;/
+;/ Purpose:			Definition file 
+;/
+;/ 
+;/ Platform:    Microsoft Windows
+;/
+;/ Functions:		
+;/
+;/
+;//***************************************************************************
+LIBRARY Cu17Wrap
+
+EXPORTS
+
+CU80WEcho
+CU80WOpen
+CU80WClose
+CU80WPiezoStop
+CU80WDCDCon
+CU80WDCDCoff
+CU80WPiezoMove
+CU80WGetEEPROMInfo
+CU80WrapperInit
+CU80WrapperDispose
+
+

@@ -1,0 +1,28 @@
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Cu17Wrap", "Cu17Wrap.vcproj", "{52CC5FC0-6508-4FC0-873F-F6FC554A21A2}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Cu17App", "..\Cu17App\Cu17App.vcproj", "{5D1DF45E-E6EA-47A2-AF4C-AE5B62496EDF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{52CC5FC0-6508-4FC0-873F-F6FC554A21A2} = {52CC5FC0-6508-4FC0-873F-F6FC554A21A2}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{52CC5FC0-6508-4FC0-873F-F6FC554A21A2}.Debug|Win32.ActiveCfg = Debug|Win32
+		{52CC5FC0-6508-4FC0-873F-F6FC554A21A2}.Debug|Win32.Build.0 = Debug|Win32
+		{52CC5FC0-6508-4FC0-873F-F6FC554A21A2}.Release|Win32.ActiveCfg = Release|Win32
+		{52CC5FC0-6508-4FC0-873F-F6FC554A21A2}.Release|Win32.Build.0 = Release|Win32
+		{5D1DF45E-E6EA-47A2-AF4C-AE5B62496EDF}.Debug|Win32.ActiveCfg = Debug|Win32
+		{5D1DF45E-E6EA-47A2-AF4C-AE5B62496EDF}.Debug|Win32.Build.0 = Debug|Win32
+		{5D1DF45E-E6EA-47A2-AF4C-AE5B62496EDF}.Release|Win32.ActiveCfg = Release|Win32
+		{5D1DF45E-E6EA-47A2-AF4C-AE5B62496EDF}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

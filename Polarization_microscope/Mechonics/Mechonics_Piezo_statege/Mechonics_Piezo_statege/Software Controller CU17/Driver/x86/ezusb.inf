@@ -1,0 +1,91 @@
+;ezusb.inf
+;Copyright (c) 2010 MechOnics ag
+;MechOnics USB Driver for Windows (x86) 2000/XP/Vista/Win7 
+;MechOnics USB Driver for Windows (x64) Vista/Win7 
+;
+[Version]
+Signature="$Windows NT$"
+Class=USB
+ClassGUID={36FC9E60-C465-11CF-8056-444553540000}
+provider=%mechOnics%
+;Directive: CatalogFile required for WHQL digital signature.
+CatalogFile.NTx86     = ezusbx86.cat
+CatalogFile.NTAMD64 = ezusbx64.cat
+DriverVer=09/20/2010,1.1.1.25
+
+[SourceDisksNames]
+1=%EZUSB_INSTALL%,,,
+
+[SourceDisksFiles]
+ezusb.sys = 1
+
+[Manufacturer]
+%MfgName%=mechOnics,NT,NTx86,NTamd64
+
+;for all platforms
+[mechOnics]
+%USB\VID_16C0&PID_094C.DeviceDesc%=EZUSB, USB\VID_16C0&PID_094C
+%USB\VID_16C0&PID_094D.DeviceDesc%=EZUSB, USB\VID_16C0&PID_094D
+
+;for 
+[mechOnics.NT]
+%USB\VID_16C0&PID_094C.DeviceDesc%=EZUSB, USB\VID_16C0&PID_094C
+%USB\VID_16C0&PID_094D.DeviceDesc%=EZUSB, USB\VID_16C0&PID_094D
+
+;for x86 platforms
+[mechOnics.NTx86]
+%USB\VID_16C0&PID_094C.DeviceDesc%=EZUSB, USB\VID_16C0&PID_094C
+%USB\VID_16C0&PID_094D.DeviceDesc%=EZUSB, USB\VID_16C0&PID_094D
+
+;for x64 platforms
+[mechOnics.NTamd64]
+%USB\VID_16C0&PID_094C.DeviceDesc%=EZUSB, USB\VID_16C0&PID_094C
+%USB\VID_16C0&PID_094D.DeviceDesc%=EZUSB, USB\VID_16C0&PID_094D
+
+[DestinationDirs]
+EZUSB.Files.Ext = 10,System32\Drivers
+
+[EZUSB.NT]
+CopyFiles=EZUSB.Files.Ext
+AddReg=EZUSB.AddReg
+
+[EZUSB.NT.Services]
+Addservice = EZUSB, 0x00000002, EZUSB.AddService
+
+[EZUSB.NTx86]
+CopyFiles=EZUSB.Files.Ext
+AddReg=EZUSB.AddReg
+
+[EZUSB.NTx86.Services]
+Addservice = EZUSB, 0x00000002, EZUSB.AddService
+
+[EZUSB.NTamd64]
+CopyFiles=EZUSB.Files.Ext
+AddReg=EZUSB.AddReg
+
+[EZUSB.NTamd64.Services]
+Addservice = EZUSB, 0x00000002, EZUSB.AddService
+
+[EZUSB.AddService]
+DisplayName    = %EZUSB.SvcDesc%
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 3                  ; SERVICE_DEMAND_START
+ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %10%\System32\Drivers\ezusb.sys
+LoadOrderGroup = Base
+
+[EZUSB.AddReg]
+HKR,,DevLoader,,*ntkern
+HKR,,NTMPDriver,,ezusb.sys
+
+[EZUSB.Files.Ext]
+ezusb.sys
+
+[Strings]
+mechOnics="mechOnics ag"
+MfgName="mechOnics ag"
+EZUSB_INSTALL="MechOnics USB Driver Installation Disk"
+USB\VID_16C0&PID_094C.DeviceDesc="mechOnics EZ-USB   1 (VID_16C0&PID_094C) (1.1.1.23)"
+USB\VID_16C0&PID_094D.DeviceDesc="mechOnics EZ-USB FX2 (VID_16C0&PID_094D) (1.1.1.23)"
+EZUSB.SvcDesc="mechOnics USB Driver (ezusb.sys)"
+
