@@ -318,6 +318,8 @@ if __name__ == '__main__':
     #setting parameter
     ax = 2 #1,2 -> x,y
     vel=1; vol=10; rep=1; sc=50
+    #Vel – Velocity of the movement; Vel = [-1000... - 1, 1…+1000], Vel = 0 = > Vel = 1;
+    #Axis – Determines the axis of the movement(1 = X - Axis, 2 = Y - Axis, 3 = Z - Axis)
     param = "vel:" + str(vel) + ", vol:" + str(vol) + ", rep:" + str(rep) + ", sc:" + str(sc)
     print(param)
     #axis = []
