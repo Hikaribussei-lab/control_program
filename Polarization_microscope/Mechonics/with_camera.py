@@ -316,9 +316,9 @@ if __name__ == '__main__':
     mechonics.open_connection()
     mechonics.dcdc_on()
     #setting parameter
-    axis = 1 #1,2 -> x,y
-    vel=-1; vol=5; rep=1; sc=3
-    param = "vel:" + str(vel) + ", vol:" + str(vol) + ", rep:" + str(rep) + ", sc_tm:" + str(sc)
+    ax = 2 #1,2 -> x,y
+    vel=1; vol=10; rep=1; sc=50
+    param = "vel:" + str(vel) + ", vol:" + str(vol) + ", rep:" + str(rep) + ", sc:" + str(sc)
     print(param)
     #axis = []
     sc_nm = []
@@ -328,7 +328,7 @@ if __name__ == '__main__':
     for i in range(sc):
         #x move posi
         for j in range(rep):
-            mechonics.move(1, vel, vol)
+            mechonics.move(ax, vel, vol)
             time.sleep(0.05)
             mechonics.stop_moving()
         
