@@ -1,0 +1,10 @@
+.chart-container {
+  border: 1px solid black;
+  width: 800px;
+  height: 400px;
+  margin-bottom: 50px;
+}
+
+#latest-values {
+  margin-top: 20px;
+}
